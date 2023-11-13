@@ -7,18 +7,18 @@
       <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap">
         <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-2">
           <!--Start Title-->
-          <h1 class="text-dark fw-bold my-1 fs-2">Dashboard <small class="text-muted fs-6 fw-normal ms-1"></small></h1>
+          <h1 class="text-dark fw-bold my-1 fs-2">{{ $title }} <small class="text-muted fs-6 fw-normal ms-1"></small></h1>
           <!--End Title-->
 
           <!--Start Breadcrumb-->
           <ul class="breadcrumb fw-semibold fs-base my-1">
             <li class="breadcrumb-item text-muted">
-              <a href="index.html" class="text-muted text-hover-primary"> Home </a>
+              <a href="/admin" class="text-muted text-hover-primary"> Home </a>
             </li>
 
-            <li class="breadcrumb-item text-muted">Dashboards</li>
+            <li class="breadcrumb-item text-muted">{{ $menu }}</li>
 
-            <li class="breadcrumb-item text-dark">Multipurpose</li>
+            <li class="breadcrumb-item text-dark">{{ $title }}</li>
           </ul>
           <!--End Breadcrumb-->
         </div>
@@ -30,7 +30,8 @@
     <div class="post fs-6 d-flex flex-column-fluid" id="kt_post">
       <div class="container-xxl">
         <!--Start Form-->
-        <form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="products.html">
+        <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row">
+          @csrf
           <!--Start Aside column-->
           <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
             <!--Start Thumbnail settings-->
@@ -43,13 +44,13 @@
               <div class="card-body text-center pt-0">
                 <style>
                   .image-input-placeholder {
-                    background-image: url("../../../{{ asset('assets_admin/media/svg/files/blank-image.svg') }}");
+                      background-image: url("{{ asset('assets-admin/media/svg/files/blank-image.svg') }}");
                   }
-
+              
                   [data-bs-theme="dark"] .image-input-placeholder {
-                    background-image: url("../../../{{ asset('assets_admin/media/svg/files/blank-image-dark.svg') }}");
+                      background-image: url("{{ asset('assets-admin/media/svg/files/blank-image-dark.svg') }}");
                   }
-                </style>
+              </style>              
 
                 <!--Start Image input-->
                 <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
@@ -59,8 +60,8 @@
 
                   <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                     <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>
-                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                    <input type="hidden" name="avatar_remove" />
+                    <input type="file" name="thumbnail" accept=".png, .jpg, .jpeg" required/>
+                    <input type="hidden" />
                   </label>
 
                   <!--Start Cancel-->
@@ -77,7 +78,13 @@
                 </div>
                 <!--End Image input-->
 
-                <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                
+                @if($errors->has('thumbnail'))
+                    <div class="text-danger fs-7">*{{ $errors->first('thumbnail') }}</div>
+                @else
+                    <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                @endif
+
               </div>
             </div>
             <!--End Thumbnail settings-->
@@ -92,25 +99,98 @@
 
               <div class="card-body pt-0">
                 <!--Start Input group-->
-                <label class="form-label">Categories</label>
+                <label for="category_id" class="required form-label">Categories</label>
 
-                <select class="form-select mb-2" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
+                <select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="category_id" name="category_id" required>
                   <option></option>
-                  <option value="Computers">Computers</option>
-                  <option value="Watches">Watches</option>
-                  <option value="Headphones">Headphones</option>
-                  <option value="Footwear">Footwear</option>
+                    @foreach ($category as $ct)
+                      @if (old('category_id') == $ct->id)
+                      <option value="{{ $ct->id }}" selected>{{ $ct->category_name }}</option>
+                      @else
+                      <option value="{{$ct->id }}">{{ $ct->category_name }}</option>
+                      @endif
+                    @endforeach
+                  </option>
                 </select>
 
                 <div class="text-muted fs-7 mb-7">Add product to a category.</div>
                 <!--End Input group-->
 
                 <!--Start Button-->
-                <a href="add-category.html" class="btn btn-light-primary btn-sm mb-10"> <i class="ki-duotone ki-plus fs-2"></i> Create new category </a>
+                <button type="button" class="btn btn-light-primary btn-sm mb-10" data-bs-toggle="modal" data-bs-target="#add-category"> <i class="ki-duotone ki-plus fs-2"></i> Create new category </button>
                 <!--End Button-->
+
+                <!--Start Input group-->
+                <div class="mb-10 fv-row">
+                  <label for="quantity" class="required form-label">Product Quantity</label>
+
+                  <input type="number" name="quantity" id="quantity" class="form-control mb-2" placeholder="Product quantity" value="{{ old('quantity') }}" required />
+                  
+                  @if($errors->has('quantity'))
+                    <div class="text-danger fs-7">*{{ $errors->first('quantity') }}</div>
+                  @else
+                    <div class="text-muted fs-7">Set the product quantity.</div>
+                  @endif
+                </div>
+                <!--End Input group-->
+
+                <!--Start Input group-->
+                <div class="mb-10 fv-row">
+                  <label for="stock" class="required form-label">Product Stock</label>
+
+                  <input type="number" name="stock" id="stock" class="form-control mb-2" placeholder="Product stock" value="{{ old('stock') }}" required />
+                  
+                  @if($errors->has('stock'))
+                    <div class="text-danger fs-7">*{{ $errors->first('stock') }}</div>
+                  @else
+                    <div class="text-muted fs-7">Set the product stock.</div>
+                  @endif
+                </div>
+                <!--End Input group-->
+
+                <!--Start Input group-->
+                <div class="mb-10 fv-row">
+                  <label for="link" class="required form-label">Product Link</label>
+
+                  <input type="text" name="link" id="link" class="form-control mb-2" placeholder="Product link" value="{{ old('link') }}" required />
+                  
+                  @if($errors->has('link'))
+                    <div class="text-danger fs-7">*{{ $errors->first('link') }}</div>
+                  @else
+                    <div class="text-muted fs-7">Set the product link.</div>
+                  @endif
+                </div>
+                <!--End Input group-->
               </div>
             </div>
             <!--End Category -->
+
+            <!--Start Status-->
+            <div class="card card-flush py-4">
+              <div class="card-header">
+                <div class="card-title">
+                  <h2>Status</h2>
+                </div>
+
+              </div>
+              <div class="card-body pt-0">
+                <select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" name="status">
+                  <option></option>
+                  
+                  @if (old('status') == "yes")
+                    <option value="yes" selected>Published</option>
+                  @elseif (old('status') == "no")
+                    <option value="no" selected>Inactive</option>
+                  @else
+                    <option value="yes" selected>Published</option>
+                    <option value="no">Inactive</option>
+                  @endif
+                </select>
+
+                <div class="text-muted fs-7">Set the product status.</div>
+              </div>
+            </div>
+            <!--End Status-->
           </div>
           <!--End Aside column-->
 
@@ -128,20 +208,45 @@
                 <div class="card-body pt-0">
                   <!--Start Input group-->
                   <div class="mb-10 fv-row">
-                    <label class="required form-label">Product Name</label>
+                    <label for="name" class="required form-label">Product Name</label>
 
-                    <input type="text" name="product_name" class="form-control mb-2" placeholder="Product name" value="" />
-                    <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>
+                    <input type="text" name="product_name" id="name" class="form-control mb-2" placeholder="Product name" value="{{ old('product_name') }}" />
+                    
+                    @if($errors->has('product_name'))
+                      <div class="text-danger fs-7">*{{ $errors->first('product_name') }}</div>
+                    @else
+                      <div class="text-muted fs-7">Set the product name.</div>
+                    @endif
+                  </div>
+                  <!--End Input group-->
+
+                  <!--Start Input group-->
+                  <div class="mb-10 fv-row">
+                    <label for="slug" class="required form-label">Product Slug Name</label>
+
+                    <input type="text" name="product_slug" id="slug" class="form-control mb-2" placeholder="Product slug name" value="{{ old('product_slug') }}" required readonly />
+                    
+                    @if($errors->has('product_slug'))
+                      <div class="text-danger fs-7">*{{ $errors->first('product_slug') }}</div>
+                    @else
+                      <div class="text-muted fs-7">Set the product slug.</div>
+                    @endif
                   </div>
                   <!--End Input group-->
 
                   <!--Start Input group-->
                   <div>
-                    <label class="form-label">Description</label>
+                    <label class="required form-label mb-3">Description</label>
 
-                    <div id="kt_ecommerce_add_product_description" name="kt_ecommerce_add_product_description" class="min-h-200px mb-2"></div>
+                    {{-- <div id="kt_ecommerce_add_product_description" name="kt_ecommerce_add_product_description" class="min-h-200px mb-2"></div> --}}
+                    <input id="description" type="hidden" name="description" value="{{ old('description') }}" required>
+                    <trix-editor input="description"></trix-editor>
 
-                    <div class="text-muted fs-7">Set a description to the product for better visibility.</div>
+                    @if($errors->has('description'))
+                      <div class="text-danger fs-7">*{{ $errors->first('description') }}</div>
+                    @else
+                      <div class="text-muted fs-7">Set a description to the product for better visibility.</div>
+                    @endif
                   </div>
                   <!--End Input group-->
                 </div>
@@ -184,14 +289,17 @@
                   </div>
                 </div>
 
-                <!--Start Card body-->
                 <div class="card-body pt-0">
                   <!--Start Input group-->
                   <div class="mb-10 fv-row">
-                    <label class="required form-label">Base Price</label>
-                    <input type="text" name="price" class="form-control mb-2" placeholder="Product price" value="" />
+                    <label for="price" class="required form-label">Base Price</label>
+                    <input type="number" id="price" name="price" class="form-control mb-2" placeholder="Product price" value="{{ old('price') }}" required />
 
-                    <div class="text-muted fs-7">Set the product price.</div>
+                    @if($errors->has('price'))
+                      <div class="text-danger fs-7">*{{ $errors->first('price') }}</div>
+                    @else
+                      <div class="text-muted fs-7">Set the product price.</div>
+                    @endif
                   </div>
                   <!--End Input group-->
 
@@ -214,10 +322,10 @@
             </div>
 
             <div class="d-flex justify-content-end">
-              <a href="products.html" class="btn btn-light me-5"> Cancel </a>
+              <a href="/admin/product" class="btn btn-light me-5"> Cancel </a>
 
               <button type="submit" class="btn btn-primary">
-                <span class="indicator-label"> Save Changes </span>
+                <span class="indicator-label"> Save </span>
               </button>
             </div>
           </div>
@@ -228,4 +336,88 @@
     </div>
     <!-- End Post -->
   </div>
+
+
+  <!-- Start Modal Add Category -->
+  <div class="modal fade" tabindex="-1" id="add-category">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3 class="modal-title">Add Category</h3>
+
+                  <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                      <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                  </div>
+              </div>
+              <form action="{{ route('category.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                  <div class="mb-10 fv-row">
+                    <label for="category_name" class="required form-label">Category Name</label>
+                    <input type="text" name="category_name" id="category_name" class="form-control mb-2" placeholder="Category name" value="{{ old('category_name') }}" required />
+
+                    @if($errors->has('category_name'))
+                      <div class="text-danger fs-7">*{{ $errors->first('category_name') }}</div>
+                    @else
+                      <div class="text-muted fs-7">Set the category name.</div>
+                    @endif
+                  </div>
+
+                  <div class="mb-10 fv-row">
+                    <label for="category_slug" class="required form-label">Category Slug</label>
+                    <input type="text" name="category_slug" id="category_slug" class="form-control mb-2" placeholder="Category slug" value="{{ old('category_slug') }}" required readonly />
+
+                    @if($errors->has('category_slug'))
+                      <div class="text-danger fs-7">*{{ $errors->first('category_slug') }}</div>
+                    @else
+                      <div class="text-muted fs-7">Set the category slug.</div>
+                    @endif
+                  </div>
+
+                  <div class="mb-10 fv-row">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description" id="description" class="form-control mb-2" placeholder="Category description" >{{ old('description') }}</textarea>
+
+                    @if($errors->has('description'))
+                      <div class="text-danger fs-7">*{{ $errors->first('description') }}</div>
+                    @else
+                      <div class="text-muted fs-7">Set the category description.</div>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  <!-- End Modal Add Category -->
+
+  <script>
+    document.addEventListener('trix-file-accept', function(e){
+            e.preventDefault();
+        })
+  </script>
+  <script>
+    const name = document.querySelector("#name");
+    const slug = document.querySelector("#slug");
+
+    const nameCategory = document.querySelector("#category_name");
+    const slugCategory = document.querySelector("#category_slug");
+
+        name.addEventListener("keyup", function() {
+            let preslug = name.value;
+            preslug = preslug.replace(/ /g,"-");
+            slug.value = preslug.toLowerCase();
+        });
+
+        nameCategory.addEventListener("keyup", function() {
+            let preslugcat = nameCategory.value;
+            preslugcat = preslugcat.replace(/ /g,"-");
+            slugCategory.value = preslugcat.toLowerCase();
+        });
+  </script>
 @endsection

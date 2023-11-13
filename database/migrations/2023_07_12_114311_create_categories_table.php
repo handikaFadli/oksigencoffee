@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->text('keterangan');
+            $table->string('category_name')->unique();
+            $table->string('category_slug')->unique();
+            $table->text('description')->default(null);
             $table->timestamps();
         });
     }

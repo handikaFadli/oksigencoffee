@@ -37,7 +37,7 @@
                 <span class="path4"></span>
               </i>
             </span>
-            <span class="menu-title">Product</span>
+            <span class="menu-title">Products</span>
           </a>
         </div>
         <div class="menu-item">

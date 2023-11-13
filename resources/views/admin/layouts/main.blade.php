@@ -12,6 +12,16 @@
     <link href="{{ asset('assets-admin/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets-admin/css/trix.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+      trix-toolbar [data-trix-button-group="file-tools"] {
+        display: none;
+      }
+      trix-editor {
+        width: 100%; 
+        height: 250px; 
+    }
+    </style>
     <script>
       if (window.top != window.self) {
         window.top.location.replace(window.self.location.href);
@@ -94,5 +104,6 @@
     <script src="{{ asset('assets-admin/js/custom/utilities/modals/select-location.js') }}"></script>
     <script src="{{ asset('assets-admin/js/custom/utilities/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets-admin/js/custom/utilities/modals/users-search.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/trix.js') }}"></script>
   </body>
 </html>

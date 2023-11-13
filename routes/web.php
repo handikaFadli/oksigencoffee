@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,9 @@ Route::get('/shop/detail/{product:slug}', [ShopController::class, 'show']);
 Route::get('/admin', function () {
   return view('admin.home-admin');
 });
+
+Route::get('/admin/product', [ProductController::class, 'index']);
+Route::get('/admin/product/create', [ProductController::class, 'create']);
+Route::get('/admin/product/edit/{product:product_slug}', [ProductController::class, 'edit']);
 Route::resource('/admin/product', ProductController::class);
+Route::resource('/admin/category', CategoryController::class);
