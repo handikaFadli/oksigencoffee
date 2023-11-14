@@ -50,7 +50,7 @@
                 <span class="path4"></span>
               </i>
             </span>
-            <span class="menu-title">Category</span>
+            <span class="menu-title">Categories</span>
           </a>
         </div>
         <div class="menu-item">

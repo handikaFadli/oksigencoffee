@@ -6,7 +6,7 @@
     <meta name="description" content="Admin Oksigen Coffee." />
     <meta name="keywords" content="Oksigen Coffee" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="{{ asset('assets-admin/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets-admin/media/logo/logo.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('assets-admin/plugins/custom/leaflet/leaflet.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-admin/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />

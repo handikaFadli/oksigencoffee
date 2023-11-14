@@ -10,12 +10,16 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->search;
+        $category = Category::where('category_name', 'LIKE', '%' . $search . '%')
+            ->oldest()->paginate(10)->withQueryString();
         return view(
             'admin.category.index',
             [
-                'judul' => 'Categories'
+                'title' => 'Categories',
+                'data' => $category
             ]
         );
     }
@@ -65,16 +69,27 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate(
+            [
+                'category_name' => 'required',
+                'category_slug' => 'required',
+            ]
+        );
+
+        $category->update($request->all());
+
+        // Alert::success('Data Prestasi', 'Berhasil Ditambahkan!');
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return back();
     }
 }

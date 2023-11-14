@@ -12,7 +12,7 @@
         <!--Start Breadcrumb-->
         <ul class="breadcrumb fw-semibold fs-base my-1">
           <li class="breadcrumb-item text-muted">
-            <a href="/admin" class="text-muted text-hover-primary"> Home </a>
+            <a href="index.html" class="text-muted text-hover-primary"> Home </a>
           </li>
 
           <li class="breadcrumb-item text-dark">{{ $title }}</li>
@@ -38,19 +38,9 @@
               <!--End Search-->
             </div>
 
-            <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-              <div class="w-100 mw-150px">
-                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status">
-                  <option></option>
-                  <option value="all">All</option>
-                  <option value="published">Published</option>
-                  <option value="scheduled">Scheduled</option>
-                  <option value="inactive">Inactive</option>
-                </select>
-              </div>
-
-              <a href="/admin/product/create" class="btn btn-primary"> Add Product </a>
-            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-category">
+              Add Category
+            </button>
           </div>
 
           <div class="card-body pt-0">
@@ -59,66 +49,37 @@
                 <thead>
                   <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                     <th class="text-center min-w-10px">No</th>
-                    <th class="min-w-200px">Product</th>
-                    <th class="text-start min-w-100px">Category</th>
-                    <th class="text-center min-w-60px">Qty</th>
-                    <th class="text-center min-w-100px">Price</th>
-                    <th class="text-center min-w-100px">Status</th>
-                    <th class="text-center min-w-100px">Actions</th>
+                    <th class="min-w-200px">Name Category</th>
+                    <th class="text-start min-w-100px">Description</th>
+                    <th class="text-start min-w-100px">Actions</th>
                   </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
                 @foreach ($data as $dt)
                   <tr>
-                    <td class="text-start pe-0">
+                    <td class="text-center pe-0">
                       {{ $loop->iteration + ($data->currentPage() - 1) * $data->perPage() }}
                     </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <!-- Start Thumbnail -->
-                        <div class="symbol symbol-50px">
-                          <span class="symbol-label" style="background-image: url({{ asset('assets-admin/media/products/'.$dt->thumbnail) }})"></span>
-                        </div>
-                        <!-- End Thumbnail -->
-
-                        <!-- Start Name -->
-                        <div class="ms-5">
-                          <span class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $dt->product_name }}</span>
-                        </div>
-                        <!-- End Name -->
-                      </div>
+                    <td class="text-start">
+                      <span class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $dt->category_name }}</span>
                     </td>
-                    <td class="text-start pe-0">
-                      {{ $dt->category_name }}
+                    <td class="text-start">
+                      {{ $dt->description }}
                     </td>
-                    <td class="text-center">
-                      {{ $dt->quantity }}
-                    </td>
-                    <td class="text-center pe-0">Rp. {{ number_format($dt->price, 0, ',', '.') }}</td>
-                    <td class="text-center pe-0">
-                      @if ( $dt->status === "yes" )
-                        <div class="badge badge-light-success">Published</div>
-                      @else
-                        <div class="badge badge-light-danger">Inactive</div>
-                      @endif
-                    </td>
-                    <td class="text-center">
+                    <td class="text-start">
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                         Actions
                         <i class="ki-duotone ki-down fs-5 ms-1"></i>
                       </a>
 
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+
                         <div class="menu-item px-3">
-                          <a href="#" class="menu-link px-3"> View </a>
+                          <a href="javascript:void(0);"  class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#edit-category-{{ $dt->id }}"> Edit </a>
                         </div>
 
                         <div class="menu-item px-3">
-                          <a href="/admin/product/edit/{{ $dt->product_slug }}"  class="menu-link px-3"> Edit </a>
-                        </div>
-
-                        <div class="menu-item px-3">
-                          <form action="{{ route('product.destroy', $dt->id) }}" method="POST">
+                          <form action="{{ route('category.destroy', $dt->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="menu-link px-3" style="border: none;  background-color: transparent;" onclick="javascript: return confirm('Are you sure want to delete this data?')">
@@ -142,3 +103,7 @@
 </div>
 
 @endsection
+@include('admin.category.create')
+@foreach ($data as $dt)
+@include('admin.category.edit')
+@endforeach

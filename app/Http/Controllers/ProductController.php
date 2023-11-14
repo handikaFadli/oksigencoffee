@@ -18,14 +18,14 @@ class ProductController extends Controller
 
         $product = Product::join('categories', 'products.category_id', '=', 'categories.id')
             ->select('products.*', 'categories.category_name', 'categories.category_slug')
-            ->orWhere('product_name', 'LIKE', '%' . $search . '%')
+            ->where('product_name', 'LIKE', '%' . $search . '%')
             ->orWhere('category_name', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
         return view(
             'admin.product.index',
             [
+                'title' => 'Products',
                 'data' => $product,
-                'judul' => 'Products'
             ]
         );
     }
