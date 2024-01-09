@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Oksigen Coffee</title>
-        <!-- Logo tab browser -->
+    <!-- Logo tab browser -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" />
     <!-- Css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/styles.css') }}" >

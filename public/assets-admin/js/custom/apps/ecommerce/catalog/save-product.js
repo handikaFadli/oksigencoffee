@@ -147,14 +147,14 @@ var KTAppEcommerceSaveProduct = (function () {
     // Init DropzoneJS --- more info:
     const initDropzone = () => {
         var myDropzone = new Dropzone("#kt_ecommerce_add_product_media", {
-            url: "{{ route('product.store') }}",
-            paramName: "file",
+            url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
+            paramName: "file", // The name that will be used to transfer the file
             maxFiles: 10,
-            maxFilesize: 10,
+            maxFilesize: 10, // MB
             addRemoveLinks: true,
             accept: function (file, done) {
                 if (file.name == "wow.jpg") {
-                    done("Anda tidak bisa mengunggah berkas ini.");
+                    done("Naha, you don't.");
                 } else {
                     done();
                 }
@@ -233,7 +233,7 @@ var KTAppEcommerceSaveProduct = (function () {
             const value = e.target.value;
 
             switch (value) {
-                case "yes": {
+                case "published": {
                     target.classList.remove(...statusClasses);
                     target.classList.add("bg-success");
                     hideDatepicker();
@@ -245,7 +245,7 @@ var KTAppEcommerceSaveProduct = (function () {
                     showDatepicker();
                     break;
                 }
-                case "no": {
+                case "inactive": {
                     target.classList.remove(...statusClasses);
                     target.classList.add("bg-danger");
                     hideDatepicker();
@@ -301,6 +301,126 @@ var KTAppEcommerceSaveProduct = (function () {
         });
     };
 
+    // Submit form handler
+    const handleSubmit = () => {
+        // Define variables
+        let validator;
+
+        // Get elements
+        const form = document.getElementById("kt_ecommerce_add_product_form");
+        const submitButton = document.getElementById(
+            "kt_ecommerce_add_product_submit"
+        );
+
+        // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+        validator = FormValidation.formValidation(form, {
+            fields: {
+                product_name: {
+                    validators: {
+                        notEmpty: {
+                            message: "Product name is required",
+                        },
+                    },
+                },
+                sku: {
+                    validators: {
+                        notEmpty: {
+                            message: "SKU is required",
+                        },
+                    },
+                },
+                sku: {
+                    validators: {
+                        notEmpty: {
+                            message: "Product barcode is required",
+                        },
+                    },
+                },
+                shelf: {
+                    validators: {
+                        notEmpty: {
+                            message: "Shelf quantity is required",
+                        },
+                    },
+                },
+                price: {
+                    validators: {
+                        notEmpty: {
+                            message: "Product base price is required",
+                        },
+                    },
+                },
+                tax: {
+                    validators: {
+                        notEmpty: {
+                            message: "Product tax class is required",
+                        },
+                    },
+                },
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: ".fv-row",
+                    eleInvalidClass: "",
+                    eleValidClass: "",
+                }),
+            },
+        });
+
+        // Handle submit button
+        submitButton.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Validate form before submit
+            if (validator) {
+                validator.validate().then(function (status) {
+                    console.log("validated!");
+
+                    if (status == "Valid") {
+                        submitButton.setAttribute("data-kt-indicator", "on");
+
+                        // Disable submit button whilst loading
+                        submitButton.disabled = true;
+
+                        setTimeout(function () {
+                            submitButton.removeAttribute("data-kt-indicator");
+
+                            Swal.fire({
+                                text: "Form has been successfully submitted!",
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                },
+                            }).then(function (result) {
+                                if (result.isConfirmed) {
+                                    // Enable submit button after loading
+                                    submitButton.disabled = false;
+
+                                    // Redirect to customers list page
+                                    window.location =
+                                        form.getAttribute("data-kt-redirect");
+                                }
+                            });
+                        }, 2000);
+                    } else {
+                        Swal.fire({
+                            html: "Sorry, looks like there are some errors detected, please try again. <br/><br/>Please note that there may be errors in the <strong>General</strong> or <strong>Advanced</strong> tabs",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            },
+                        });
+                    }
+                });
+            }
+        });
+    };
+
     // Public methods
     return {
         init: function () {
@@ -317,6 +437,7 @@ var KTAppEcommerceSaveProduct = (function () {
             handleConditions();
             handleDiscount();
             handleShipping();
+            handleSubmit();
         },
     };
 })();

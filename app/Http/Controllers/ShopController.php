@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -12,8 +13,9 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         $data = Product::get();
+        $categories = Category::get();
 
-        return view('shop', compact('data'));
+        return view('shop', compact('data', 'categories'));
     }
 
     public function show(Product $product)

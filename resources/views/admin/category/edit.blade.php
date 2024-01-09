@@ -15,7 +15,7 @@
               <div class="modal-body">
                 <div class="mb-10 fv-row">
                   <label for="category_name" class="required form-label">Category Name</label>
-                  <input type="text" name="category_name" id="category_name" class="form-control mb-2" placeholder="Category name" value="{{ old('category_name', $dt->category_name) }}" required />
+                  <input type="text" name="category_name" id="category_name_update" class="form-control mb-2" placeholder="Category name" value="{{ old('category_name', $dt->category_name) }}" required />
 
                   @if($errors->has('category_name'))
                     <div class="text-danger fs-7">*{{ $errors->first('category_name') }}</div>
@@ -26,7 +26,7 @@
 
                 <div class="mb-10 fv-row">
                   <label for="category_slug" class="required form-label">Category Slug</label>
-                  <input type="text" name="category_slug" id="category_slug" class="form-control mb-2" placeholder="Category slug" value="{{ old('category_slug', $dt->category_slug) }}" required readonly />
+                  <input type="text" name="category_slug" id="category_slug_update" class="form-control mb-2" placeholder="Category slug" value="{{ old('category_slug', $dt->category_slug) }}" required readonly />
 
                   @if($errors->has('category_slug'))
                     <div class="text-danger fs-7">*{{ $errors->first('category_slug') }}</div>
@@ -58,12 +58,12 @@
 <!-- End Modal Add Category -->
 
 <script>
-  const nameCategory = document.querySelector("#category_name");
-  const slugCategory = document.querySelector("#category_slug");
+  const nameCategoryUpdate = document.querySelector("#category_name_update");
+  const slugCategoryUpdate = document.querySelector("#category_slug_update");
 
-    nameCategory.addEventListener("keyup", function() {
-        let preslugcat = nameCategory.value;
+    nameCategoryUpdate.addEventListener("keyup", function() {
+        let preslugcat = nameCategoryUpdate.value;
         preslugcat = preslugcat.replace(/ /g,"-");
-        slugCategory.value = preslugcat.toLowerCase();
+        slugCategoryUpdate.value = preslugcat.toLowerCase();
     });
 </script>

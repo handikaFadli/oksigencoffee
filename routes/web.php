@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\ShopController;
+use App\Models\ProductImage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +38,12 @@ Route::get('/admin', function () {
   return view('admin.home-admin');
 });
 
+Route::get('/admin/product/createimages', function () {
+  return view('admin.product.create-images');
+});
+
 Route::resource('/admin/product', ProductController::class);
 Route::get('/admin/product/edit/{product:product_slug}', [ProductController::class, 'edit']);
+Route::get('/admin/product/detail/{product:product_slug}', [ProductController::class, 'show']);
 Route::resource('/admin/category', CategoryController::class);
+Route::resource('/admin/productImage', ProductImageController::class);

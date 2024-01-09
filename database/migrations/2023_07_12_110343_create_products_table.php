@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('stock');
             $table->double('price');
-            $table->text('link');
             $table->text('description');
             $table->text('thumbnail');
             $table->char('status', 3)->default('no');

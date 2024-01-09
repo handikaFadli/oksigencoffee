@@ -27,6 +27,14 @@
           </a>
         </div>
 
+        <!-- Main -->     
+        <div class="menu-item pt-5">
+          <div class="menu-content">
+            <span class="fw-bold text-muted text-uppercase fs-7">Main</span>
+          </div>
+        </div>
+
+        <!-- Main - Product --> 
         <div class="menu-item">
           <a class="menu-link {{ Request::is('admin/product*') ? 'active' : '' }}" href="/admin/product" >
             <span class="menu-icon">
@@ -40,6 +48,8 @@
             <span class="menu-title">Products</span>
           </a>
         </div>
+
+        <!-- Main - Category --> 
         <div class="menu-item">
           <a class="menu-link {{ Request::is('admin/category*') ? 'active' : '' }}" href="/admin/category" >
             <span class="menu-icon">
@@ -53,7 +63,23 @@
             <span class="menu-title">Categories</span>
           </a>
         </div>
+
+        <!-- Main - Order --> 
         <div class="menu-item">
+          <a class="menu-link {{ Request::is('admin/order*') ? 'active' : '' }}" href="/admin/order" >
+            <span class="menu-icon">
+              <i class="ki-duotone ki-gift fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+                <span class="path4"></span>
+              </i>
+            </span>
+            <span class="menu-title">Orders</span>
+          </a>
+        </div>
+
+        {{-- <div class="menu-item">
           <a class="menu-link" href="layout-builder.html">
             <span class="menu-icon">
               <i class="ki-duotone ki-abstract-13 fs-2">
@@ -63,7 +89,63 @@
             </span>
             <span class="menu-title">Layout Builder</span>
           </a>
+        </div> --}}
+
+        <!-- Front --> 
+        <div class="menu-item pt-5">
+          <div class="menu-content">
+            <span class="fw-bold text-muted text-uppercase fs-7">Front</span>
+          </div>
         </div>
+
+        <div class="menu-item">
+          <a class="menu-link" href="layout-builder.html">
+            <span class="menu-icon">
+              <i class="ki-duotone ki-row-vertical fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+            </span>
+            <span class="menu-title">Home</span>
+          </a>
+        </div>
+
+        <div class="menu-item">
+          <a class="menu-link" href="layout-builder.html">
+            <span class="menu-icon">
+              <i class="ki-duotone ki-row-vertical fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+            </span>
+            <span class="menu-title">About</span>
+          </a>
+        </div>
+
+        <div class="menu-item">
+          <a class="menu-link" href="layout-builder.html">
+            <span class="menu-icon">
+              <i class="ki-duotone ki-row-vertical fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+            </span>
+            <span class="menu-title">Shop</span>
+          </a>
+        </div>
+
+        <div class="menu-item">
+          <a class="menu-link" href="layout-builder.html">
+            <span class="menu-icon">
+              <i class="ki-duotone ki-row-vertical fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+            </span>
+            <span class="menu-title">Contact</span>
+          </a>
+        </div>
+
         {{-- <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
           <span class="menu-link">
             <span class="menu-icon">

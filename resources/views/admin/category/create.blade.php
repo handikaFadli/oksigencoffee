@@ -1,5 +1,5 @@
-  <!-- Start Modal Add Category -->
-  <div class="modal fade" tabindex="-1" id="add-category">
+<!-- Start Modal Add Category -->
+<div class="modal fade" tabindex="-1" id="add-category">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

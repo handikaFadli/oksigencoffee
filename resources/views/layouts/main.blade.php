@@ -25,5 +25,6 @@
 
     <!-- My JS -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/detail-shop.js') }}"></script>
   </body>
 </html>

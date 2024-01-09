@@ -12,15 +12,19 @@
     <link href="{{ asset('assets-admin/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets-admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    {{-- trix editor --}}
     <link href="{{ asset('assets-admin/css/trix.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets-admin/css/style_upload.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('assets-admin/js/trix.js') }}"></script>
     <style>
       trix-toolbar [data-trix-button-group="file-tools"] {
         display: none;
       }
       trix-editor {
-        width: 100%; 
-        height: 250px; 
-    }
+        max-width: 520px; 
+        height: auto; 
+      }
     </style>
     <script>
       if (window.top != window.self) {
@@ -73,11 +77,12 @@
           @yield('content-admin')
           
           <!--End Content-->
-          
+
         </div>
       </div>
     </div>
     <!--End Main-->
+    @include('sweetalert::alert')
 
     {{-- <script>
       var hostUrl = "{{ asset('assets-admin/assets/index.html') }}";
@@ -87,7 +92,9 @@
     <script src="{{ asset('assets-admin/plugins/custom/leaflet/leaflet.bundle.js') }}"></script>
     <script src="{{ asset('assets-admin/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets-admin/js/custom/apps/ecommerce/catalog/products.js') }}"></script>
-    <script src="{{ asset('assets-admin/js/custom/apps/ecommerce/catalog/save-product.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/custom/apps/ecommerce/catalog/categories.js') }}"></script>
+    {{-- <script src="{{ asset('assets-admin/js/custom/apps/ecommerce/catalog/coba.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets-admin/js/custom/apps/ecommerce/catalog/save-product.js') }}"></script> --}}
     <script src="{{ asset('assets-admin/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
     <script src="{{ asset('assets-admin/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('assets-admin/js/custom/widgets.js') }}"></script>
@@ -105,5 +112,8 @@
     <script src="{{ asset('assets-admin/js/custom/utilities/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets-admin/js/custom/utilities/modals/users-search.js') }}"></script>
     <script src="{{ asset('assets-admin/js/trix.js') }}"></script>
+    {{-- <script src="{{ asset('assets-admin/js/products.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets-admin/js/categories.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets-admin/plugins/global/plugins.bundle.js') }}"></script> --}}
   </body>
 </html>

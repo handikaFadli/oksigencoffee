@@ -149,19 +149,7 @@
                 </div>
                 <!--End Input group-->
 
-                <!--Start Input group-->
-                <div class="mb-10 fv-row">
-                  <label for="link" class="required form-label">Product Link</label>
-
-                  <input type="text" name="link" id="link" class="form-control mb-2" placeholder="Product link" value="{{ old('link', $product->link) }}" required />
-                  
-                  @if($errors->has('link'))
-                    <div class="text-danger fs-7">*{{ $errors->first('link') }}</div>
-                  @else
-                    <div class="text-muted fs-7">Set the product link.</div>
-                  @endif
-                </div>
-                <!--End Input group-->
+                
               </div>
             </div>
             <!--End Category -->
@@ -241,8 +229,10 @@
                     <label class="required form-label mb-3">Description</label>
 
                     {{-- <div id="kt_ecommerce_add_product_description" name="kt_ecommerce_add_product_description" class="min-h-200px mb-2"></div> --}}
-                    <input id="description" type="hidden" name="description" value="{{ old('description', $product->description) }}" required>
-                    <trix-editor input="description"></trix-editor>
+                    {{-- <input id="description" type="hidden" name="description" value="{{ old('description', $product->description) }}" required>
+                    <trix-editor input="description"></trix-editor> --}}
+
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ old('description', $product->description) }}</textarea>
 
                     @if($errors->has('description'))
                       <div class="text-danger fs-7">*{{ $errors->first('description') }}</div>
@@ -264,21 +254,17 @@
                 </div>
 
                 <div class="card-body pt-0">
-                  <!--Start Input group-->
                   <div class="fv-row mb-2">
-                    <div class="dropzone" id="kt_ecommerce_add_product_media">
-                      <div class="dz-message needsclick">
-                        <i class="ki-duotone ki-file-up text-primary fs-3x"><span class="path1"></span><span class="path2"></span></i>
-                        <div class="ms-4">
-                          <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop files here or click to upload.</h3>
-                          <span class="fs-7 fw-semibold text-gray-400">Upload up to 10 files</span>
-                        </div>
-                      </div>
+                    @foreach ($product_images as $pi)
+                      <img src="{{ asset('assets-admin/media/products/'.$pi->image) }}" alt="product" class="mx-2" style="width: 7rem;">  
+                    @endforeach
+                    <div class="d-flex justify-content-end mt-5">
+                      <button type="button" class="btn btn-sm btn-light-warning" data-bs-toggle="modal" data-bs-target="#update-image">
+                        Update
+                      </button>
                     </div>
-                  </div>
-                  <!--End Input group-->
 
-                  <div class="text-muted fs-7">Set the product media gallery.</div>
+                  </div>
                 </div>
               </div>
               <!--End Media-->
@@ -327,7 +313,7 @@
               <a href="/admin/product" class="btn btn-light me-5"> Cancel </a>
 
               <button type="submit" class="btn btn-primary">
-                <span class="indicator-label"> Save </span>
+                Save
               </button>
             </div>
           </div>
@@ -398,6 +384,61 @@
   </div>
   <!-- End Modal Add Category -->
 
+  <!-- Start Modal Update Image -->
+  <div class="modal fade" tabindex="-1" id="update-image" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+      <div class="modal-content">
+          <div class="modal-header pb-0 border-0 justify-content-end">
+            <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                <i class="ki-duotone ki-cross fs-1">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+            </div>
+          </div>
+          <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
+            <div class="text-center mb-13">
+              <h2 class="mb-3">Update Product Images</h2>
+
+              <div class="text-muted fw-semibold fs-5">
+                  Invite Collaborators To Your Project
+              </div>
+            </div>
+            <div class="row">
+              @foreach ($product_images as $pi)
+                <div class="col-4">
+                  <div class="d-flex flex-column align-items-center mb-3">
+                    <img src="{{ asset('assets-admin/media/products/'.$pi->image) }}" class="rounded border" style="width: 7rem;">
+                    <a href="{{ route('productImage.destroy',$pi->id) }}" class="mt-2" data-confirm-delete="true" style="color: red"> x </a>
+                  </div>
+                </div>
+              @endforeach
+            </div>
+            
+            <div class="form-product-images mt-3">
+              <div class="text-muted fw-semibold fs-6 mb-3">
+                Add images
+              </div>
+              <form action="{{ route('productImage.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="product" value="{{ $product->product_slug }}">
+                <div class="row">
+                  <label class="upload-btn mb-3" for="upload-btn">Choose file</label>
+                  <input type="file" class="custom-file-input" id="upload-btn" name="product_images[]" multiple required>
+                  
+                  <button type="submit" class="btn btn-icon-success btn-text-success">
+                    <i class="bi bi-cloud-upload"></i>
+                    Upload
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal Update Image -->
+
   <script>
     document.addEventListener('trix-file-accept', function(e){
             e.preventDefault();
@@ -422,4 +463,5 @@
             slugCategory.value = preslugcat.toLowerCase();
         });
   </script>
+  
 @endsection

@@ -2,27 +2,23 @@
 
 @section('content')
     <!-- Shop Section Start -->
-    <section class="shop-2">
+    <section class="shop">
       <h2>Shop</h2>
       <div class="row">
         <div class="shop-categori">
           <ul>
             <li><a href="#">All Product</a></li>
-            <li><a href="#">Commodity Espresso Based</a></li>
-            <li><a href="#">Arabika Espresso Based</a></li>
-            <li><a href="#">Kopi Susu Blend</a></li>
-            <li><a href="#">Arabika Filter Roast</a></li>
+            @foreach($categories as $category)
+            <li><a href="#">{{ $category->category_name }}</a></li>
+            @endforeach
           </ul>
         </div>
         <div class="shop-content">
           @foreach ($data as $product)
-            @php
-              $images = App\models\ProductImage::where('product', $product->slug)->first();
-            @endphp
-            <a href="/shop/detail/{{ $product->slug }}">
+            <a href="/shop/detail/{{ $product->product_slug }}">
               <div class="product-box">
-                <img src="{{ asset('assets/images/products/'.$images->image) }}" alt="product 1" class="product-img" />
-                <h2 class="product-title">{{ $product->name }}</h2>
+                <img src="{{ asset('assets-admin/media/products/'.$product->thumbnail) }}" alt="product 1" class="product-img" />
+                <h2 class="product-title">{{ $product->product_name }}</h2>
                 <span class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
               </div>
             </a>

@@ -16,25 +16,19 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// single product
-const allHoverImages = document.querySelectorAll(".product-image-prev .product-image-small img");
-const imgContainer = document.querySelector(".product-image");
+// toggle class active
+const cart = document.querySelector(".shopping-cart");
 
-window.addEventListener("DOMContentLoaded", () => {
-  allHoverImages[0].parentElement.classList.add("active");
-});
-allHoverImages.forEach((image) => {
-  image.addEventListener("mouseover", () => {
-    if (image.src) {
-      imgContainer.querySelector("img").src = image.src;
-      resetActiveImg();
-      image.parentElement.classList.add("active");
-    }
-  });
-});
+// ketika button shopping cart di klik
+document.querySelector("#shopping-cart-button").onclick = () => {
+  cart.classList.toggle("active");
+};
 
-function resetActiveImg() {
-  allHoverImages.forEach((img) => {
-    img.parentElement.classList.remove("active");
-  });
-}
+// klik di luar sidebar untuk menghilangkan menu
+const toggleCart = document.querySelector("#shopping-cart-button");
+
+document.addEventListener("click", function (e) {
+  if (!toggleCart.contains(e.target) && !cart.contains(e.target)) {
+    cart.classList.remove("active");
+  }
+});

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class CategoryController extends Controller
 {
@@ -15,6 +17,13 @@ class CategoryController extends Controller
         $search = $request->search;
         $category = Category::where('category_name', 'LIKE', '%' . $search . '%')
             ->oldest()->paginate(10)->withQueryString();
+
+        $title_alert = 'Delete Category!';
+        $text_alert = "Are you sure you want to delete?";
+        confirmDelete($title_alert, $text_alert);
+
+        // $category = Category::all();
+
         return view(
             'admin.category.index',
             [
@@ -46,7 +55,7 @@ class CategoryController extends Controller
 
         Category::create($request->all());
 
-        // Alert::success('Data Prestasi', 'Berhasil Ditambahkan!');
+        Alert::success('Category', 'Category successfully added!');
         return back();
     }
 
@@ -80,7 +89,7 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        // Alert::success('Data Prestasi', 'Berhasil Ditambahkan!');
+        Alert::success('Category', 'Category successfully added!');
         return back();
     }
 
@@ -90,6 +99,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+        Alert::success('Category', 'Category successfully deleted!');
         return back();
     }
 }
