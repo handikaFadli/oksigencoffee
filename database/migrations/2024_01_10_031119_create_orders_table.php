@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('postcode', 99);
             $table->string('phone', 20);
             $table->double('total_price');
+            $table->enum('status', ['pending', 'success', 'failed'])->default('pending');
+            $table->text('snap_token');
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@ Route::get('/about', [LandingController::class, 'about']);
 
 Route::get('/contact', [LandingController::class, 'contact']);
 
-Route::get('/shop', [ShopController::class, 'index']);
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/{product:product_slug}', [ShopController::class, 'show']);
 
 
@@ -47,5 +47,6 @@ Route::resource('/admin/productImage', ProductImageController::class);
 Route::post('temp_create', [OrderController::class, 'temp_create'])->name('temp_create');
 Route::post('temp_update/{id}', [OrderController::class, 'temp_update'])->name('temp_update');
 Route::delete('temp_destroy/{id}', [OrderController::class, 'temp_destroy'])->name('temp_destroy');
-Route::get('/shop-checkout', [OrderController::class, 'checkout']);
+Route::get('/shop-checkout', [OrderController::class, 'checkout'])->name('shop-checkout');
 Route::post('order_create', [OrderController::class, 'order_create'])->name('order_create');
+Route::get('/shop-payment/{id}', [OrderController::class, 'payment'])->name('shop-payment');

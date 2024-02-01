@@ -977,7 +977,7 @@ body {
     font-weight: 600;
     margin-bottom: 1.7rem;
 }
-.shop-checkout form.content {
+.shop-checkout .content {
     display: flex;
 }
 .shop-checkout .content .col-1 {
@@ -989,11 +989,10 @@ body {
 .shop-checkout .content .col-2 {
     padding: 1rem 1.5rem 1rem 1rem;
     flex: 1 1 34rem;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
-    text-align: center;
+    text-align: center; */
 }
 .shop-checkout .content .form-container {
     width: 100%;
@@ -1038,7 +1037,8 @@ body {
     font-size: 18px;
     color: var(--black);
     font-weight: 600;
-    /* margin-bottom: 5px; */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .shop-checkout .col-2 h1 {
@@ -1063,7 +1063,8 @@ body {
     font-weight: 400;
     line-height: 1.2rem;
     overflow: visible;
-    padding: 0.6rem 2.3rem;
+    padding: 0.6rem 2rem;
+    margin-left: 14px;
     text-align: center;
     touch-action: manipulation;
     user-select: none;
@@ -1071,6 +1072,71 @@ body {
     white-space: nowrap;
     margin-bottom: 1.3rem;
     text-transform: uppercase;
+}
+
+.shop-checkout .cart-totals {
+    /* border: 1px solid #ccc; */
+    padding: 20px 10px 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.shop-checkout .cart-totals .row {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    margin-bottom: 15px;
+}
+
+.shop-checkout .cart-totals .row .label {
+    font-size: 16px;
+    color: var(--black);
+    flex: 0.75;
+    line-height: 25px;
+}
+
+.shop-checkout .cart-totals .row .label span {
+    color: var(--brown);
+    font-size: 16px;
+    padding-left: 5px;
+    font-weight: 600;
+    text-transform: lowercase;
+}
+
+.shop-checkout .cart-totals .row .value {
+    font-size: 15px;
+    color: var(--black);
+    text-align: right;
+    flex: 0.25;
+}
+
+.shop-checkout .cart-totals .row-subtotal {
+    border-top: 2px solid #ccc;
+    padding-top: 15px;
+}
+
+.shop-checkout .cart-totals .total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-top: 2px solid #ccc;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+
+.shop-checkout .row-total-payment {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+.shop-checkout .link-shop {
+    text-decoration: none;
+    color: var(--brown);
+    font-size: 15px;
 }
 
 /* shop section */
