@@ -15,7 +15,7 @@
         </div>
         <div class="shop-content">
           @foreach ($data as $product)
-            <a href="/shop/detail/{{ $product->product_slug }}">
+            <a href="/shop/{{ $product->product_slug }}">
               <div class="product-box">
                 <img src="{{ asset('assets-admin/media/products/'.$product->thumbnail) }}" alt="product 1" class="product-img" />
                 <h2 class="product-title">{{ $product->product_name }}</h2>

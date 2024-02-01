@@ -15,8 +15,7 @@
     <link href="{{ asset('assets-admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
     {{-- trix editor --}}
     <link href="{{ asset('assets-admin/css/trix.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets-admin/css/style_upload.css') }}" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('assets-admin/js/trix.js') }}"></script>
+    {{-- <link href="{{ asset('assets-admin/css/style_upload.css') }}" rel="stylesheet" type="text/css" /> --}}
     <style>
       trix-toolbar [data-trix-button-group="file-tools"] {
         display: none;
