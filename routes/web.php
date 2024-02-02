@@ -6,8 +6,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\ShopController;
-use App\Http\Controllers\TempController;
-use App\Models\ProductImage;
 use Illuminate\Support\Facades\Route;
 
 /*
