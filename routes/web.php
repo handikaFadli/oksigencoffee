@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\MenuCategoryController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
@@ -48,3 +50,6 @@ Route::delete('temp_destroy/{id}', [OrderController::class, 'temp_destroy'])->na
 Route::get('/shop-checkout', [OrderController::class, 'checkout'])->name('shop-checkout');
 Route::post('order_create', [OrderController::class, 'order_create'])->name('order_create');
 Route::get('/shop-payment/{id}', [OrderController::class, 'payment'])->name('shop-payment');
+
+Route::resource('/admin/menu-category', MenuCategoryController::class);
+Route::resource('/admin/menu', MenuController::class);

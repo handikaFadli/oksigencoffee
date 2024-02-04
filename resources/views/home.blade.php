@@ -45,11 +45,11 @@
     <!-- Hero Section Start -->
     <section class="hero">
       <div class="slide">
-        <div style="background-image: url({{ asset('assets/images/home_1.jpg') }})"></div>
-        <div style="background-image: url({{ asset('assets/images/bg_1.jpg') }})"></div>
-        <div style="background-image: url({{ asset('assets/images/home_3.jpg') }})"></div>
-        <div style="background-image: url({{ asset('assets/images/home_4.jpg') }})"></div>
-        <div style="background-image: url({{ asset('assets/images/bg_3.jpg') }})"></div>
+        <div style="background-image: url({{ asset('assets/images/bg-3.jpg') }})"></div>
+        <div style="background-image: url({{ asset('assets/images/bg-1.jpg') }})"></div>
+        <div style="background-image: url({{ asset('assets/images/bg-2.jpg') }})"></div>
+        <div style="background-image: url({{ asset('assets/images/bg-5.jpg') }})"></div>
+        <div style="background-image: url({{ asset('assets/images/bg-6.jpg') }})"></div>
       </div>
       <div class="slide-caption">
         <h1>Oksigen Coffee</h1>

@@ -64,6 +64,36 @@
           </a>
         </div>
 
+        <!-- Main - Category --> 
+        <div class="menu-item">
+          <a class="menu-link {{ Request::is('admin/menu*') ? 'active' : '' }}" href="/admin/menu" >
+            <span class="menu-icon">
+              <i class="ki-duotone ki-gift fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+                <span class="path4"></span>
+              </i>
+            </span>
+            <span class="menu-title">Menu Product</span>
+          </a>
+        </div>
+
+        <!-- Main - Category --> 
+        <div class="menu-item">
+          <a class="menu-link {{ Request::is('admin/menu-category*') ? 'active' : '' }}" href="/admin/menu-category" >
+            <span class="menu-icon">
+              <i class="ki-duotone ki-gift fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+                <span class="path4"></span>
+              </i>
+            </span>
+            <span class="menu-title">Menu Categories</span>
+          </a>
+        </div>
+
         <!-- Main - Order --> 
         <div class="menu-item">
           <a class="menu-link {{ Request::is('admin/order*') ? 'active' : '' }}" href="/admin/order" >
