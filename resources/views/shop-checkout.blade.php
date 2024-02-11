@@ -58,10 +58,10 @@
               <div class="label">Sub total</div>
               <div class="value" id="subtotal">Rp {{ number_format($total_price, 0, ',', ',') }}</div>
           </div>
-          <div class="row">
+          {{-- <div class="row">
               <div class="label">Shipping</div>
               <div class="value" id="shipping">Rp 23,000</div>
-          </div>
+          </div> --}}
           <div class="total-row">
               <div class="label">Total</div>
               <div class="value" id="total"></div>
@@ -78,7 +78,7 @@
 @endsection
 
 @section('scripts')
-<script>
+{{-- <script>
   document.addEventListener("DOMContentLoaded", function() {
       // Ambil elemen subtotal dan shipping
       var subtotalElement = document.getElementById("subtotal");
@@ -95,6 +95,6 @@
       // Tampilkan total dengan format mata uang
       totalElement.innerText = "Rp " + total.toLocaleString();
   });
-</script>
+</script> --}}
 
 @endsection
